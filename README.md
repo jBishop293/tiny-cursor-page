@@ -63,3 +63,10 @@ Another edge: `CursorPage` copies the item array in its constructor. If you
 reuse one instance across requests while the underlying data changes, the pages
 will reflect the snapshot taken at construction time. Build a new instance per
 request, or hand the pagination to a data source that can seek to an index.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
